@@ -2,10 +2,12 @@ import React from 'react'
 import './closeFriend.css'
 
 const CloseFriend = ({ user }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
   return (
     <li className='sidebarFriend'>
       <img
-        src={`assets/${user.profilePicture}`}
+        src={PF + `${user.profilePicture}`}
         alt={user.username}
         className='sidebarFriendImg'
       />

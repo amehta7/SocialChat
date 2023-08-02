@@ -21,7 +21,7 @@ router.delete('/:id', deletePost)
 router.get('/:id', getPost)
 
 //get timeline posts(following users posts)
-router.get('/timeline/all', timelineAllPost)
+router.get('/timeline/:userId', timelineAllPost)
 
 //like/dislike a post
 router.put('/:id/like', likeDislikePost)

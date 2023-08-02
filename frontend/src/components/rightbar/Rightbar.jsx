@@ -4,6 +4,8 @@ import { Users } from '../../dummyData'
 import Online from '../online/Online'
 
 const Rightbar = ({ profile }) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
   const HomeRightBar = () => {
     return (
       <React.Fragment>
