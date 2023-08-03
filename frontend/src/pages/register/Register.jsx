@@ -2,6 +2,9 @@ import React from 'react'
 import './register.css'
 
 const Register = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
   return (
     <div className='login'>
       <div className='loginWrapper'>
@@ -12,8 +15,13 @@ const Register = () => {
           </span>
         </div>
         <div className='loginRight'>
-          <form className='loginBox'>
-            <input placeholder='Username' required className='loginInput' />
+          <form className='loginBox' onSubmit={handleSubmit}>
+            <input
+              placeholder='Username'
+              required
+              type='text'
+              className='loginInput'
+            />
             <input
               placeholder='Email'
               required

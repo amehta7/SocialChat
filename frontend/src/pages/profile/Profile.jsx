@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './profile.css'
 import Topbar from '../../components/topbar/Topbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Rightbar'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 const Profile = () => {
+  const [user, setUser] = useState({})
+
+  const { username } = useParams()
+
+  //console.log(username)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`/users?username=${username}`)
+      //console.log(res.data)
+      setUser(res.data)
+    }
+
+    fetchUser()
+  }, [username])
+
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
   return (
@@ -18,23 +36,25 @@ const Profile = () => {
             <div className='profileCover'>
               <img
                 className='profileCoverImg'
-                src={`${PF}post/3.jpeg`}
+                src={`${PF}/${user.coverPicture}` || `${PF}/person/noCover.png`}
                 alt='Cover_Picture'
               />
               <img
                 className='profileUserImg'
-                src={`${PF}person/7.jpeg`}
+                src={
+                  `${PF}/${user.profilePicture}` || `${PF}/person/noAvatar.png`
+                }
                 alt='Profile_Image'
               />
             </div>
             <div className='profileInfo'>
-              <h4 className='profileInfoName'>usename</h4>
-              <span className='profileInfoDesc'>desc</span>
+              <h4 className='profileInfoName'>{user.username}</h4>
+              <span className='profileInfoDesc'>{user.desc}</span>
             </div>
           </div>
           <div className='profileRightBottom'>
-            <Feed />
-            <Rightbar profile />
+            <Feed username={username} />
+            <Rightbar user={user} />
           </div>
         </div>
       </div>

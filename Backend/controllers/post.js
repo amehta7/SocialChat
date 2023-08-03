@@ -92,6 +92,17 @@ const timelineAllPost = async (req, res) => {
   }
 }
 
+const getUserPosts = async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.params.username })
+    const posts = await Post.find({ userId: user._id })
+
+    res.status(200).json(posts)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 module.exports = {
   createPost,
   updatePost,
@@ -99,4 +110,5 @@ module.exports = {
   getPost,
   likeDislikePost,
   timelineAllPost,
+  getUserPosts,
 }

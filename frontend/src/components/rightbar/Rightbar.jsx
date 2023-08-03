@@ -3,7 +3,7 @@ import './rightbar.css'
 import { Users } from '../../dummyData'
 import Online from '../online/Online'
 
-const Rightbar = ({ profile }) => {
+const Rightbar = ({ user }) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
   const HomeRightBar = () => {
@@ -37,63 +37,36 @@ const Rightbar = ({ profile }) => {
         <div className='rightbarInfo'>
           <div className='rightbarInfoItem'>
             <span className='rightbarInfoKey'>City:</span>
-            <span className='rightbarInfoValue'>New York</span>
+            <span className='rightbarInfoValue'>{user.city}</span>
           </div>
           <div className='rightbarInfoItem'>
             <span className='rightbarInfoKey'>From:</span>
-            <span className='rightbarInfoValue'>Albany</span>
+            <span className='rightbarInfoValue'>{user.from}</span>
           </div>
           <div className='rightbarInfoItem'>
             <span className='rightbarInfoKey'>Relationship:</span>
-            <span className='rightbarInfoValue'>Single</span>
+            <span className='rightbarInfoValue'>
+              {user.relationship === 1
+                ? 'Single'
+                : user.relationship === 2
+                ? 'Married'
+                : '-'}
+            </span>
           </div>
         </div>
         <h4 className='rightbarTitle'>User friends</h4>
         <div className='rightbarFollowings'>
-          <div className='rightbarFollowing'>
-            <img
-              src='/assets/person/1.jpeg'
-              alt='Person_Image'
-              className='rightbarFollowingImg'
-            />
-            <span className='rightbarFollowingName'>John Doe</span>
-          </div>
-
-          <div className='rightbarFollowing'>
-            <img
-              src='/assets/person/2.jpeg'
-              alt='Person_Image'
-              className='rightbarFollowingImg'
-            />
-            <span className='rightbarFollowingName'>John Doe</span>
-          </div>
-
-          <div className='rightbarFollowing'>
-            <img
-              src='/assets/person/3.jpeg'
-              alt='Person_Image'
-              className='rightbarFollowingImg'
-            />
-            <span className='rightbarFollowingName'>John Doe</span>
-          </div>
-
-          <div className='rightbarFollowing'>
-            <img
-              src='/assets/person/4.jpeg'
-              alt='Person_Image'
-              className='rightbarFollowingImg'
-            />
-            <span className='rightbarFollowingName'>John Doe</span>
-          </div>
-
-          <div className='rightbarFollowing'>
-            <img
-              src='/assets/person/5.jpeg'
-              alt='Person_Image'
-              className='rightbarFollowingImg'
-            />
-            <span className='rightbarFollowingName'>John Doe</span>
-          </div>
+          {/* {user &&
+            user.followings.map((u, index) => (
+              <div className='rightbarFollowing' key={index}>
+                <img
+                  src='/assets/person/1.jpeg'
+                  alt='Person_Image'
+                  className='rightbarFollowingImg'
+                />
+                <span className='rightbarFollowingName'>{u}</span>
+              </div>
+            ))} */}
         </div>
       </React.Fragment>
     )
@@ -102,7 +75,7 @@ const Rightbar = ({ profile }) => {
   return (
     <div className='rightbar'>
       <div className='rightbarWrapper'>
-        {profile ? <ProfileRightBar /> : <HomeRightBar />}
+        {user ? <ProfileRightBar /> : <HomeRightBar />}
       </div>
     </div>
   )

@@ -6,6 +6,7 @@ const {
   getPost,
   likeDislikePost,
   timelineAllPost,
+  getUserPosts,
 } = require('../controllers/post')
 
 //create a post
@@ -22,6 +23,9 @@ router.get('/:id', getPost)
 
 //get timeline posts(following users posts)
 router.get('/timeline/:userId', timelineAllPost)
+
+//get all posts of specific user
+router.get('/profile/:username', getUserPosts)
 
 //like/dislike a post
 router.put('/:id/like', likeDislikePost)

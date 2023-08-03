@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useRef, useContext } from 'react'
 import './login.css'
+import { loginCall } from '../../apiCalls'
+import { AuthContext } from '../../context/AuthContext'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const Login = () => {
+  const email = useRef()
+  const password = useRef()
+
+  const { user, isFetching, error, dispatch } = useContext(AuthContext)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    //console.log(email.current.value)
+    loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    )
+  }
+
+  // console.log(user)
+  // console.log(error)
+
   return (
     <div className='login'>
       <div className='loginWrapper'>
@@ -12,12 +32,13 @@ const Login = () => {
           </span>
         </div>
         <div className='loginRight'>
-          <form className='loginBox'>
+          <form className='loginBox' onSubmit={handleSubmit}>
             <input
               placeholder='Email'
               type='email'
               required
               className='loginInput'
+              ref={email}
             />
             <input
               placeholder='Password'
@@ -25,9 +46,14 @@ const Login = () => {
               required
               minLength='6'
               className='loginInput'
+              ref={password}
             />
             <button className='loginButton' type='submit'>
-              Login
+              {isFetching ? (
+                <CircularProgress color='inherit' size={20} />
+              ) : (
+                'Login'
+              )}
             </button>
             <span className='loginForgot'>Forgot Password?</span>
             <button className='loginRegisterButton'>
