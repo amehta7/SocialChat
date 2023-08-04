@@ -1,24 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './feed.css'
 import Share from '../share/Share'
 import Post from '../post/Post'
 import axios from 'axios'
+import { AuthContext } from '../../context/AuthContext'
 
 const Feed = ({ username }) => {
   const [postData, setPostData] = useState([])
+
+  const { user } = useContext(AuthContext)
 
   //console.log(username)
   useEffect(() => {
     const fetchPosts = async () => {
       const res = username
         ? await axios.get(`/posts/profile/${username}`)
-        : await axios.get('/posts/timeline/64c978feecf83f15f4c5050d')
+        : await axios.get(`/posts/timeline/${user._id}`)
       //console.log(res.data)
       setPostData(res.data)
     }
 
     fetchPosts()
-  }, [username])
+  }, [username, user._id])
 
   return (
     <div className='feed'>

@@ -3,12 +3,15 @@ import './login.css'
 import { loginCall } from '../../apiCalls'
 import { AuthContext } from '../../context/AuthContext'
 import CircularProgress from '@mui/material/CircularProgress'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const email = useRef()
   const password = useRef()
 
-  const { user, isFetching, error, dispatch } = useContext(AuthContext)
+  const { isFetching, error, dispatch } = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,6 +20,7 @@ const Login = () => {
       { email: email.current.value, password: password.current.value },
       dispatch
     )
+    navigate('/')
   }
 
   // console.log(user)
@@ -48,7 +52,7 @@ const Login = () => {
               className='loginInput'
               ref={password}
             />
-            <button className='loginButton' type='submit'>
+            <button className='loginButton' type='submit' disabled={isFetching}>
               {isFetching ? (
                 <CircularProgress color='inherit' size={20} />
               ) : (
@@ -56,8 +60,14 @@ const Login = () => {
               )}
             </button>
             <span className='loginForgot'>Forgot Password?</span>
-            <button className='loginRegisterButton'>
-              Create a New Account
+
+            <button className='loginRegisterButton' disabled={isFetching}>
+              <Link
+                to='/register'
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                Create a New Account
+              </Link>
             </button>
           </form>
         </div>
