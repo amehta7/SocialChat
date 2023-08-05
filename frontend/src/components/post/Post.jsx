@@ -52,7 +52,7 @@ const Post = ({ post }) => {
                 src={
                   user.profilePicture
                     ? `${PF}/${user.profilePicture}`
-                    : `${PF}/person/noAvatar.png`
+                    : `${PF}person/noAvatar.png`
                 }
                 alt='Person_Image'
               />

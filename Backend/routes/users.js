@@ -5,6 +5,7 @@ const {
   getUser,
   followUser,
   unFollowUser,
+  getFollowingsOfUser,
 } = require('../controllers/users')
 
 //update user
@@ -15,6 +16,9 @@ router.delete('/:id', deleteUser)
 
 //get a user by query with id or username
 router.get('/', getUser)
+
+//get followings
+router.get('/friends/:userId', getFollowingsOfUser)
 
 //follow a user
 router.put('/:id/follow', followUser)

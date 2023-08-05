@@ -8,6 +8,7 @@ const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
 const multer = require('multer')
 const path = require('path')
+const cors = require('cors')
 
 const app = express()
 
@@ -21,11 +22,17 @@ mongoose.connect(
   }
 )
 
-//middleware
-app.use(express.json())
-app.use(helmet())
-app.use(morgan('common'))
 app.use('/images', express.static(path.join(__dirname, 'public/images')))
+
+//middleware
+
+app.use(express.json())
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+)
+app.use(morgan('common'))
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -37,6 +44,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage: storage })
+
 app.post('/api/upload', upload.single('file'), (req, res) => {
   try {
     return res.status(200).json('File uploded successfully')
