@@ -111,7 +111,7 @@ const Rightbar = ({ user }) => {
         <h4 className='rightbarTitle'>User friends</h4>
         <div className='rightbarFollowings'>
           {friends.length === 0
-            ? `You don't follow anyone`
+            ? `${user.username} don't follow anyone`
             : friends.map((f) => (
                 <Link
                   key={f._id}
